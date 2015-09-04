@@ -10,48 +10,25 @@ Datapath
 class Datapath(object):
 
     def __init__(self):
-        self.paths = {  }
+        self.vars = {  }
 
-    def add_variable(self, var_name):
-        """
-        Adds a variable name in the paths map
-        this will allow you to further access the
-        variables update functions.
-        """
+    def add_var(self, var_name):
+        self.vars[var_name] = None
 
-        if var_name in self.keys():
-            raise ValueError("The variable with name %r is already in use.", (var_name))
+    def add_update_function(self, var_name, func):
+        self.vars[var_name] = func
 
-        self.paths[var_name] = (None, None)
+    def add_func_and_var(self, var_name, func):
+        self.vars[var_name] = func
 
-    def add_read_function(self, var_name, function):
-        """
-        This will add the update function to the variable,
-        and set the variable value as None.
-        """
+    def update(self):
+        data = [  ]
 
-        if not var_name in self.keys():
-            raise ValueError("The variable %r has not been set.", (var_name))
+        for var, func in self.vars.items():
+            data.append((var, func()))
 
-        self.paths[var_name] = (function, None)
+        return data
 
-    def add_path(self, var_name, function):
-        """
-        This method will create the variable name
-        and add an update function to it, and also will
-        set the variable value to None in the tuple.
-        """
-
-        self.paths[var_name] = (function, None)
-
-    def update_variables(self):
-        """
-        This method will read all the variables and return
-        the values in to the tuple second position
-        """
-
-        for var, funct in self.path.items():
-            self.paths[var][1] = funct()
 
 """
 State
