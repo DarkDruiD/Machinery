@@ -38,7 +38,7 @@ class State(object):
 
     def __init__(self, name):
         self.name = name
-
+        self.on_start = None
 
 """
 State Table
@@ -71,6 +71,8 @@ class StateTable(object):
 
         self.table[Si].append((Sj, omega, beta))
 
+    def get_transitions(self, Si):
+        return self.table[Si]
 
 """
 FSMD
@@ -96,12 +98,26 @@ FSMD
 
 class FSMD(object):
 
-    def __init__(self, states, datapath, init_state):
+    def __init__(self, states, datapath, state_table, init_state):
+        self.vars = None
+        self.curr_state = init_state
+
         self.states = states
         self.datapath = datapath
+        self.init_state = init_state
+        self.state_table = state_table
 
     def update_variables(self):
-        pass
+        self.vars = self.datapath.update()
 
     def update_fmsd(self):
-        pass
+        trans = self.state_table.get_state(self.curr_state)
+
+        for tr in trans:
+            if tr[1]:
+                self.curr_state = tr[0]
+                if self.curr_state.on_start:
+                    self.curr_state.on_start()
+
+    def get_current_state(self):
+        return self.curr_state
