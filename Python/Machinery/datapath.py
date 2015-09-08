@@ -21,7 +21,19 @@ class Datapath(object):
     def add_variable(self, var_name, update_func):
         """
         Stores the variable in a dict with its name as key
-        and the update function as the value
+        and the update function as the value.
+
+        This function should receive no arguments and should
+        return a value from it, a simple example would be
+        something like this:
+
+            d = Datapath()
+
+            def rand_value():
+                import random
+                return random.randint(0, 100)
+
+            d.add_variable("random_0_100", rand_value)
         """
         self.variables[var_name] = update_func
 
