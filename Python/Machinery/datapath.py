@@ -15,8 +15,8 @@ class Datapath(object):
 
     def __init__(self):
         """Initializes empty dicts for storing variables and values"""
-        self.variables = {  }
-        self.values = {  }
+        self.variables = {}
+        self.values = {}
 
     def add_variable(self, var_name, update_func):
         """
@@ -54,14 +54,14 @@ class Datapath(object):
 
     def get_variable(self, var_name):
         """Returns the updated value of the variable read from the function"""
-        if not var_name in self.variables.keys():
+        if var_name not in self.variables.keys():
             raise ValueError("{} has not been defined.".format(var_name))
 
         return self.variables[var_name]()
 
     def get_value(self, val_name):
         """Returns the value of the dict"""
-        if not val_name in self.values.keys():
+        if val_name not in self.values.keys():
             raise ValueError("{} has not been defined".format(val_name))
 
         return self.values[val_name]
@@ -73,7 +73,7 @@ class Datapath(object):
         the variable names as the key
         """
 
-        all_vars = {  }
+        all_vars = {}
 
         for var, func in self.variables.items():
             all_vars[var] = func()
