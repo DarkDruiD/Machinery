@@ -159,6 +159,10 @@ class FSMD(object):
             new_state = self.state_table.transition(self.curr_state)
 
             if new_state:
-                self.curr_state.on_leave()
+                if self.curr_state.on_leave:
+                    self.curr_state.on_leave()
+
                 self.curr_state = new_state
-                self.curr_state.on_enter()
+
+                if self.curr_state.on_enter:
+                    self.curr_state.on_enter()
