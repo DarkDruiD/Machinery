@@ -1,5 +1,4 @@
 # Machinery
----
 
 The FSM are a simple yet complete approach to solve automation problems, but from time to time in system development libraries fall short for the need and a simple FSM that provides states and transitions is far from enough, that is why this library was written, in order to allow you to make a full project based in a FSMD machine that allows you to read variables and operate and change states with the values.
 
